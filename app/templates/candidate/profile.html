@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h3 class="fw-bold mb-4">
+<i class="bi bi-person"></i>
+My Profile
+</h3>
+
+<div class="row justify-content-center">
+
+<div class="col-lg-5 col-md-7 col-12">
+
+<div class="card profile-card">
+
+<div class="card-body text-center">
+
+<!-- PROFILE AVATAR -->
+
+<div class="profile-avatar">
+
+<i class="bi bi-person"></i>
+
+</div>
+
+<h5 class="fw-bold mt-3">
+
+{{ user.email }}
+
+</h5>
+
+<p class="text-muted">
+
+{{ user.role|capitalize }}
+
+</p>
+
+<hr>
+
+<!-- ACCOUNT STATUS -->
+
+<p class="status-text">
+
+<strong>Account Status:</strong>
+
+{% if user.is_verified %}
+
+<span class="badge verified-badge">
+
+<i class="bi bi-check-circle"></i>
+Verified
+
+</span>
+
+{% else %}
+
+<span class="badge not-verified-badge">
+
+Not Verified
+
+</span>
+
+{% endif %}
+
+</p>
+
+<!-- VERIFICATION REQUEST -->
+
+{% if not user.is_verified %}
+
+```
+{% if not user.verification_requested %}
+
+<a href="{{ url_for('candidate_bp.request_verification') }}"
+   class="btn btn-primary verify-btn">
+
+   <i class="bi bi-shield-check"></i>
+   Request Verification
+
+</a>
+
+{% else %}
+
+<div class="alert alert-warning mt-3">
+
+<i class="bi bi-clock"></i>
+Verification request sent to admin.
+
+</div>
+
+{% endif %}
+```
+
+{% else %}
+
+<div class="alert alert-success mt-3">
+
+<i class="bi bi-patch-check"></i>
+Your account is verified.
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROFILE STYLE -->
+
+<style>
+
+/* PROFILE CARD */
+
+.profile-card{
+
+border:none;
+border-radius:16px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+padding:10px;
+transition:0.3s;
+
+}
+
+.profile-card:hover{
+
+transform:translateY(-5px);
+box-shadow:0 16px 35px rgba(0,0,0,0.12);
+
+}
+
+
+/* PROFILE AVATAR */
+
+.profile-avatar{
+
+width:90px;
+height:90px;
+background:linear-gradient(135deg,#0d6efd,#6610f2);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+color:white;
+font-size:42px;
+
+}
+
+
+/* STATUS TEXT */
+
+.status-text{
+
+font-size:15px;
+
+}
+
+
+/* VERIFIED BADGE */
+
+.verified-badge{
+
+background:#28a745;
+font-size:13px;
+padding:6px 10px;
+margin-left:8px;
+
+}
+
+
+/* NOT VERIFIED BADGE */
+
+.not-verified-badge{
+
+background:#dc3545;
+font-size:13px;
+padding:6px 10px;
+margin-left:8px;
+
+}
+
+
+/* VERIFY BUTTON */
+
+.verify-btn{
+
+margin-top:10px;
+border-radius:8px;
+
+}
+
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+.profile-avatar{
+
+width:70px;
+height:70px;
+font-size:34px;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

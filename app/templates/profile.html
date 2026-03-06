@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<div class="row justify-content-center">
+
+<div class="col-md-6">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center">
+
+<!-- Profile Icon -->
+
+<div class="mb-3">
+<i class="bi bi-person-circle text-primary" style="font-size:70px;"></i>
+</div>
+
+<!-- Name -->
+
+<h4 class="fw-bold">
+
+{{ user.name }}
+
+{% if user.is_verified %}
+<i class="bi bi-check-circle text-primary"></i>
+{% endif %}
+
+</h4>
+
+<!-- Email -->
+
+<p class="text-muted mb-2">
+
+<i class="bi bi-envelope"></i>
+{{ user.email }}
+
+</p>
+
+<!-- Role -->
+
+<p class="mb-3">
+
+<span class="badge bg-secondary">
+{{ user.role }}
+</span>
+
+</p>
+
+<!-- Verification Status -->
+
+{% if user.is_verified %}
+
+<div class="alert alert-success">
+
+<i class="bi bi-patch-check"></i>
+Your account is verified
+
+</div>
+
+{% else %}
+
+<div class="alert alert-warning">
+
+<i class="bi bi-exclamation-circle"></i>
+Your account is not verified
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

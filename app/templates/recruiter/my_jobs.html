@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h3 class="fw-bold mb-4">
+<i class="bi bi-briefcase"></i>
+My Posted Jobs
+</h3>
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+{% if jobs %}
+
+<table class="table align-middle">
+
+<thead class="table-light">
+
+<tr>
+<th>Job Title</th>
+<th>Location</th>
+<th>Skills</th>
+<th>Applications</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for job in jobs %}
+
+<tr>
+
+<!-- JOB TITLE -->
+
+<td>
+<strong>{{ job.title }}</strong>
+</td>
+
+<!-- LOCATION -->
+
+<td>
+<i class="bi bi-geo-alt"></i>
+{{ job.location }}
+</td>
+
+<!-- SKILLS -->
+
+<td>
+
+{% if job.skills %}
+
+{% for skill in job.skills.split(",") %}
+
+<span class="badge bg-light text-dark border me-1">
+
+{{ skill.strip() }}
+
+</span>
+
+{% endfor %}
+
+{% endif %}
+
+</td>
+
+<!-- APPLICATION COUNT -->
+
+<td>
+
+<span class="badge bg-primary">
+
+{{ job.applications|length }}
+
+</span>
+
+</td>
+
+<!-- ACTION BUTTONS -->
+
+<td>
+
+<a href="/recruiter/job/{{ job.id }}/applications"
+class="btn btn-sm btn-outline-primary">
+
+<i class="bi bi-people"></i>
+Applications
+
+</a>
+
+<a href="/recruiter/job/{{ job.id }}/edit"
+class="btn btn-sm btn-outline-warning">
+
+<i class="bi bi-pencil"></i>
+Edit
+
+</a>
+
+<a href="/recruiter/job/{{ job.id }}/delete"
+class="btn btn-sm btn-outline-danger">
+
+<i class="bi bi-trash"></i>
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% else %}
+
+<!-- EMPTY STATE -->
+
+<div class="text-center py-4">
+
+<i class="bi bi-briefcase fs-1 text-muted"></i>
+
+<h5 class="mt-3">
+No Jobs Posted Yet
+</h5>
+
+<p class="text-muted">
+You haven't posted any jobs yet.
+</p>
+
+<a href="/recruiter/post-job"
+class="btn btn-primary">
+
+Post Your First Job
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

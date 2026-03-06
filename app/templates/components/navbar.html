@@ -1,0 +1,179 @@
+<nav class="navbar navbar-dark navbar-expand-lg px-4 custom-navbar">
+
+<a class="navbar-brand fw-bold text-white" href="/">
+
+NewHiring 🚀
+
+</a>
+
+<button class="navbar-toggler"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#navbarMenu">
+
+<span class="navbar-toggler-icon"></span>
+
+</button>
+
+<div class="collapse navbar-collapse justify-content-end"
+id="navbarMenu">
+
+{% if session.get("user_id") %}
+
+<div class="d-flex align-items-center flex-wrap navbar-actions">
+
+<!-- USER EMAIL -->
+
+<span class="user-email me-3">
+
+<i class="bi bi-person-circle"></i>
+
+{{ current_user.email }}
+
+{% if current_user.is_verified %}
+
+<i class="fas fa-check-circle verified-icon"></i>
+
+{% endif %}
+
+</span>
+
+<!-- CHAT -->
+
+<a href="/chat"
+class="btn btn-light btn-sm nav-btn">
+
+<i class="bi bi-chat-dots"></i>
+
+</a>
+
+<!-- NOTIFICATIONS -->
+
+<a href="{{ url_for('notification.view_notifications') }}"
+class="btn btn-light btn-sm nav-btn position-relative">
+
+<i class="bi bi-bell"></i>
+
+{% if unread_count and unread_count > 0 %}
+
+<span class="notification-badge">
+
+{{ unread_count }}
+
+</span>
+
+{% endif %}
+
+</a>
+
+<!-- LOGOUT -->
+
+<a href="{{ url_for('auth.logout') }}"
+class="btn btn-light btn-sm nav-btn">
+
+Logout
+
+</a>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</nav>
+
+<style>
+
+/* NAVBAR */
+
+.custom-navbar{
+
+background:linear-gradient(45deg,#0d6efd,#6610f2);
+box-shadow:0 4px 14px rgba(0,0,0,0.15);
+
+}
+
+
+/* ACTION BUTTONS */
+
+.nav-btn{
+
+margin-left:6px;
+border-radius:8px;
+transition:0.2s;
+
+}
+
+.nav-btn:hover{
+
+transform:translateY(-1px);
+
+}
+
+
+/* EMAIL */
+
+.user-email{
+
+color:white;
+font-size:14px;
+max-width:200px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+
+}
+
+
+/* VERIFIED ICON */
+
+.verified-icon{
+
+color:#0dcaf0;
+margin-left:4px;
+
+}
+
+
+/* NOTIFICATION BADGE */
+
+.notification-badge{
+
+position:absolute;
+top:-5px;
+right:-6px;
+background:#dc3545;
+color:white;
+font-size:10px;
+padding:4px 6px;
+border-radius:50%;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.navbar-actions{
+
+margin-top:10px;
+
+}
+
+.user-email{
+
+max-width:140px;
+
+}
+
+.nav-btn{
+
+margin-top:5px;
+
+}
+
+}
+
+</style>

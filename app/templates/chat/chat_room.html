@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-3">
+
+<div class="row g-3">
+
+<!-- LEFT SIDE USERS -->
+
+<div class="col-lg-4 col-md-5 col-12">
+
+<div class="card chat-users-card">
+
+<div class="card-header fw-semibold">
+
+<i class="bi bi-people"></i>
+Conversations
+
+</div>
+
+<div class="user-list">
+
+{% for user in users %}
+
+<a href="?user_id={{ user.id }}"
+class="user-item">
+
+<i class="bi bi-person-circle"></i>
+
+<span>
+
+{{ user.email }}
+
+</span>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT SIDE CHAT -->
+
+<div class="col-lg-8 col-md-7 col-12">
+
+<div class="card chat-card">
+
+<div class="card-header fw-semibold">
+
+<i class="bi bi-chat-dots"></i>
+Chat
+
+</div>
+
+<div class="card-body d-flex flex-column">
+
+<!-- CHAT BOX -->
+
+<div id="chat-box" class="chat-box">
+
+{% if chats %}
+
+{% for chat in chats %}
+
+{% if chat.sender_id == session.get("user_id") %}
+
+<!-- MY MESSAGE -->
+
+<div class="chat-message my-message">
+
+<span>
+
+{{ chat.message }}
+
+</span>
+
+</div>
+
+{% else %}
+
+<!-- OTHER MESSAGE -->
+
+<div class="chat-message other-message">
+
+<span>
+
+{{ chat.message }}
+
+</span>
+
+<small class="chat-user">
+
+{{ chat.sender.email }}
+
+</small>
+
+</div>
+
+{% endif %}
+
+{% endfor %}
+
+{% else %}
+
+<div class="empty-chat">
+
+No messages yet
+
+</div>
+
+{% endif %}
+
+</div>
+
+<!-- MESSAGE INPUT -->
+
+{% if selected_user_id %}
+
+<form method="POST" class="chat-input">
+
+<input type="hidden"
+name="receiver_id"
+value="{{ selected_user_id }}">
+
+<input
+type="text"
+name="message"
+class="form-control"
+placeholder="Type a message..."
+required
+
+>
+
+<button class="btn btn-primary">
+
+<i class="bi bi-send"></i>
+
+</button>
+
+</form>
+
+{% else %}
+
+<div class="text-center text-muted mt-3">
+
+Select a user to start chat
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* USERS CARD */
+
+.chat-users-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* USER LIST */
+
+.user-list{
+
+height:500px;
+overflow-y:auto;
+
+}
+
+
+/* USER ITEM */
+
+.user-item{
+
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px;
+border-bottom:1px solid #f0f0f0;
+text-decoration:none;
+color:#333;
+transition:0.2s;
+
+}
+
+.user-item:hover{
+
+background:#f7f9fc;
+
+}
+
+
+/* CHAT CARD */
+
+.chat-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* CHAT BOX */
+
+.chat-box{
+
+height:400px;
+overflow-y:auto;
+background:#f8f9fa;
+padding:15px;
+border-radius:10px;
+display:flex;
+flex-direction:column;
+
+}
+
+
+/* CHAT MESSAGE */
+
+.chat-message{
+
+margin-bottom:12px;
+max-width:70%;
+
+}
+
+
+/* MY MESSAGE */
+
+.my-message{
+
+align-self:flex-end;
+background:#0d6efd;
+color:white;
+padding:8px 12px;
+border-radius:12px;
+
+}
+
+
+/* OTHER MESSAGE */
+
+.other-message{
+
+background:white;
+border:1px solid #e6e6e6;
+padding:8px 12px;
+border-radius:12px;
+
+}
+
+
+/* USER NAME */
+
+.chat-user{
+
+display:block;
+font-size:11px;
+color:#888;
+margin-top:2px;
+
+}
+
+
+/* INPUT */
+
+.chat-input{
+
+display:flex;
+gap:10px;
+margin-top:12px;
+
+}
+
+.chat-input input{
+
+border-radius:8px;
+
+}
+
+
+/* EMPTY CHAT */
+
+.empty-chat{
+
+text-align:center;
+color:#999;
+margin-top:40px;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.chat-box{
+
+height:350px;
+
+}
+
+.user-list{
+
+height:350px;
+
+}
+
+.chat-message{
+
+max-width:85%;
+
+}
+
+}
+
+</style>
+
+<script>
+
+var chatBox = document.getElementById("chat-box");
+
+if(chatBox){
+chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+</script>
+
+{% endblock %}

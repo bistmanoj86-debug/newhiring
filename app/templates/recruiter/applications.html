@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+<h3 class="fw-bold mb-4">
+<i class="bi bi-people"></i>
+Candidate Applications
+</h3>
+
+<div class="card applications-card">
+
+<div class="card-body">
+
+<div class="table-responsive">
+
+<table class="table align-middle application-table">
+
+<thead>
+
+<tr>
+<th>Job</th>
+<th>Candidate</th>
+<th>Status</th>
+<th>Resume</th>
+<th>Update Status</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for app in applications %}
+
+<tr>
+
+<!-- JOB -->
+
+<td>
+
+<strong>
+
+{{ app.job.title }}
+
+</strong>
+
+</td>
+
+<!-- CANDIDATE -->
+
+<td>
+
+<i class="bi bi-person-circle"></i>
+
+{{ app.candidate.name }}
+
+</td>
+
+<!-- STATUS -->
+
+<td>
+
+{% if app.status == "Applied" %} <span class="badge status-applied">Applied</span>
+
+{% elif app.status == "Viewed" %} <span class="badge status-viewed">Viewed</span>
+
+{% elif app.status == "Shortlisted" %} <span class="badge status-shortlisted">Shortlisted</span>
+
+{% elif app.status == "Interview" %} <span class="badge status-interview">Interview</span>
+
+{% elif app.status == "Hired" %} <span class="badge status-hired">Hired</span>
+
+{% else %} <span class="badge bg-dark">{{ app.status }}</span>
+{% endif %}
+
+</td>
+
+<!-- RESUME -->
+
+<td>
+
+{% if app.resume %}
+
+<a href="{{ url_for('static', filename='uploads/resumes/' + app.resume) }}"
+target="_blank"
+class="btn btn-sm btn-outline-primary resume-btn">
+
+<i class="bi bi-file-earmark-text"></i>
+View
+
+</a>
+
+{% else %}
+
+<span class="text-muted small">No Resume</span>
+
+{% endif %}
+
+</td>
+
+<!-- UPDATE STATUS -->
+
+<td>
+
+<form action="{{ url_for('recruiter.update_status', app_id=app.id) }}"
+method="POST"
+class="status-form">
+
+<select name="status" class="form-select form-select-sm">
+
+<option value="Applied" {% if app.status == "Applied" %}selected{% endif %}>Applied</option>
+<option value="Viewed" {% if app.status == "Viewed" %}selected{% endif %}>Viewed</option>
+<option value="Shortlisted" {% if app.status == "Shortlisted" %}selected{% endif %}>Shortlisted</option>
+<option value="Interview" {% if app.status == "Interview" %}selected{% endif %}>Interview</option>
+<option value="Hired" {% if app.status == "Hired" %}selected{% endif %}>Hired</option>
+
+</select>
+
+<button type="submit"
+class="btn btn-primary btn-sm update-btn">
+
+Update
+
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* CARD */
+
+.applications-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* TABLE */
+
+.application-table thead{
+
+background:#f6f7f9;
+
+}
+
+.application-table tr{
+
+transition:0.2s;
+
+}
+
+.application-table tr:hover{
+
+background:#f9fafc;
+
+}
+
+
+/* STATUS BADGES */
+
+.status-applied{
+
+background:#6c757d;
+
+}
+
+.status-viewed{
+
+background:#0dcaf0;
+
+}
+
+.status-shortlisted{
+
+background:#ffc107;
+color:#000;
+
+}
+
+.status-interview{
+
+background:#0d6efd;
+
+}
+
+.status-hired{
+
+background:#198754;
+
+}
+
+
+/* RESUME BUTTON */
+
+.resume-btn{
+
+border-radius:6px;
+
+}
+
+
+/* STATUS FORM */
+
+.status-form{
+
+display:flex;
+gap:6px;
+align-items:center;
+
+}
+
+
+/* UPDATE BUTTON */
+
+.update-btn{
+
+border-radius:6px;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.status-form{
+
+flex-direction:column;
+
+}
+
+.update-btn{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

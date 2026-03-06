@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<div class="row justify-content-center">
+
+<div class="col-xl-6 col-lg-7 col-md-9 col-12">
+
+<h3 class="fw-bold mb-4">
+
+<i class="bi bi-bell"></i>
+Notification Settings
+
+</h3>
+
+<div class="card settings-card">
+
+<div class="card-body">
+
+<form method="POST">
+
+<!-- NEW JOBS -->
+
+<div class="form-check setting-item">
+
+<input class="form-check-input"
+type="checkbox"
+name="new_jobs"
+id="new_jobs"
+checked>
+
+<label class="form-check-label" for="new_jobs">
+
+Email notifications for new jobs
+
+</label>
+
+</div>
+
+<!-- APPLICATION UPDATES -->
+
+<div class="form-check setting-item">
+
+<input class="form-check-input"
+type="checkbox"
+name="application_updates"
+id="application_updates"
+checked>
+
+<label class="form-check-label" for="application_updates">
+
+Application status updates
+
+</label>
+
+</div>
+
+<!-- WEEKLY ALERTS -->
+
+<div class="form-check setting-item">
+
+<input class="form-check-input"
+type="checkbox"
+name="weekly_alerts"
+id="weekly_alerts">
+
+<label class="form-check-label" for="weekly_alerts">
+
+Weekly job alerts
+
+</label>
+
+</div>
+
+<!-- BUTTON -->
+
+<div class="mt-3">
+
+<button type="submit"
+class="btn btn-info save-btn">
+
+<i class="bi bi-check-circle"></i>
+Save Settings
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* CARD */
+
+.settings-card{
+
+border:none;
+border-radius:14px;
+padding:10px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* SETTING ITEM */
+
+.setting-item{
+
+padding:8px 0;
+
+}
+
+
+/* CHECKBOX */
+
+.form-check-input{
+
+cursor:pointer;
+
+}
+
+
+/* BUTTON */
+
+.save-btn{
+
+border-radius:8px;
+padding:8px 16px;
+transition:0.2s;
+
+}
+
+.save-btn:hover{
+
+transform:translateY(-1px);
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.save-btn{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

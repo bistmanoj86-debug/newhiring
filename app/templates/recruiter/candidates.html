@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h3 class="fw-bold mb-4">
+<i class="bi bi-people"></i>
+Candidates
+</h3>
+
+<div class="card candidates-card">
+
+<div class="card-body">
+
+{% if candidates %}
+
+<div class="table-responsive">
+
+<table class="table align-middle candidate-table">
+
+<thead>
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Skills</th>
+<th>Resume</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for candidate in candidates %}
+
+<tr>
+
+<!-- NAME -->
+
+<td>
+
+<div class="d-flex align-items-center">
+
+<i class="bi bi-person-circle me-2 fs-5"></i>
+
+<div>
+
+<strong>
+
+{{ candidate.name }}
+
+</strong>
+
+{% if candidate.is_verified %}
+
+<i class="fas fa-check-circle text-primary ms-1"></i>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</td>
+
+<!-- EMAIL -->
+
+<td>
+
+{{ candidate.email }}
+
+</td>
+
+<!-- SKILLS -->
+
+<td>
+
+{% if candidate.skills %}
+
+{% for skill in candidate.skills.split(",") %}
+
+<span class="skill-tag">
+
+{{ skill.strip() }}
+
+</span>
+
+{% endfor %}
+
+{% else %}
+
+<span class="text-muted small">
+
+Not Provided
+
+</span>
+
+{% endif %}
+
+</td>
+
+<!-- RESUME -->
+
+<td>
+
+{% if candidate.resume %}
+
+<a href="{{ url_for('static', filename='uploads/resumes/' + candidate.resume) }}"
+target="_blank"
+class="btn btn-sm btn-outline-primary resume-btn">
+
+<i class="bi bi-file-earmark-text"></i>
+
+View Resume
+
+</a>
+
+{% else %}
+
+<span class="text-muted small">
+
+No Resume
+
+</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<!-- EMPTY STATE -->
+
+<div class="empty-state text-center">
+
+<i class="bi bi-person-x"></i>
+
+<h5 class="mt-3">
+No Candidates Found
+</h5>
+
+<p class="text-muted">
+No candidates have applied yet.
+</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* CARD */
+
+.candidates-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* TABLE HEADER */
+
+.candidate-table thead{
+
+background:#f6f7f9;
+
+}
+
+
+/* ROW HOVER */
+
+.candidate-table tr{
+
+transition:0.2s;
+
+}
+
+.candidate-table tr:hover{
+
+background:#f9fafc;
+
+}
+
+
+/* SKILL TAG */
+
+.skill-tag{
+
+background:#f2f4f7;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+margin-right:4px;
+margin-bottom:4px;
+display:inline-block;
+
+}
+
+
+/* RESUME BUTTON */
+
+.resume-btn{
+
+border-radius:6px;
+
+}
+
+
+/* EMPTY STATE */
+
+.empty-state{
+
+padding:50px 20px;
+
+}
+
+.empty-state i{
+
+font-size:60px;
+color:#bbb;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.candidate-table{
+
+font-size:14px;
+
+}
+
+.resume-btn{
+
+font-size:12px;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

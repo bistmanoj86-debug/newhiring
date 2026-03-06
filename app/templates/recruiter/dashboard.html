@@ -1,0 +1,412 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<!-- HEADER -->
+
+<div class="mb-4 recruiter-header">
+
+<h3 class="fw-bold">
+
+<i class="bi bi-building"></i>
+Recruiter Dashboard
+
+</h3>
+
+<p class="text-muted">
+
+Manage your job postings and review candidate applications.
+
+</p>
+
+</div>
+
+<!-- ACTION CARDS -->
+
+<div class="row g-4">
+
+<!-- POST JOB -->
+
+<div class="col-xl-4 col-lg-4 col-md-6 col-12">
+
+<div class="card recruiter-card h-100 text-center">
+
+<div class="card-body">
+
+<div class="icon-circle bg-primary">
+
+<i class="bi bi-plus-circle"></i>
+
+</div>
+
+<h5 class="mt-3">
+
+Post New Job
+
+</h5>
+
+<p class="text-muted small">
+
+Create a new job listing and start receiving applications.
+
+</p>
+
+<a href="{{ url_for('recruiter.post_job') }}"
+class="btn btn-primary btn-sm recruiter-btn">
+
+Create Job
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- VIEW APPLICATIONS -->
+
+<div class="col-xl-4 col-lg-4 col-md-6 col-12">
+
+<div class="card recruiter-card h-100 text-center">
+
+<div class="card-body">
+
+<div class="icon-circle bg-success">
+
+<i class="bi bi-people"></i>
+
+</div>
+
+<h5 class="mt-3">
+
+Applications
+
+</h5>
+
+<p class="text-muted small">
+
+View and manage candidate applications.
+
+</p>
+
+<a href="{{ url_for('recruiter.view_applications') }}"
+class="btn btn-success btn-sm recruiter-btn">
+
+View Applications
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div class="col-xl-4 col-lg-4 col-md-6 col-12">
+
+<div class="card recruiter-card h-100 text-center">
+
+<div class="card-body">
+
+<div class="icon-circle bg-warning">
+
+<i class="bi bi-person"></i>
+
+</div>
+
+<h5 class="mt-3">
+
+Recruiter Profile
+
+</h5>
+
+<p class="text-muted small">
+
+Update your company and recruiter details.
+
+</p>
+
+<a href="{{ url_for('candidate_bp.profile') }}"
+class="btn btn-warning btn-sm text-white recruiter-btn">
+
+View Profile
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RECENT CANDIDATES -->
+
+<h4 class="mt-5">
+
+<i class="bi bi-people"></i>
+Recent Candidates
+
+</h4>
+
+<div class="card mt-3 candidate-card">
+
+<div class="card-body">
+
+{% if applications %}
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle candidate-table">
+
+<thead>
+
+<tr>
+<th>Candidate</th>
+<th>Job</th>
+<th>Status</th>
+<th>Resume</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for app in applications %}
+
+<tr>
+
+<td>
+
+<strong>
+
+{{ app.candidate_id }}
+
+</strong>
+
+</td>
+
+<td>
+
+{{ app.job_id }}
+
+</td>
+
+<td>
+
+<span class="badge bg-info">
+
+{{ app.status }}
+
+</span>
+
+</td>
+
+<td>
+
+<a href="{{ url_for('static', filename='uploads/resumes/' + app.resume) }}"
+class="btn btn-sm btn-primary"
+target="_blank">
+
+View Resume
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<div class="text-center text-muted p-4">
+
+<i class="bi bi-person-x empty-icon"></i>
+
+<h5 class="mt-3">
+
+No Candidates Found
+
+</h5>
+
+<p>
+
+No candidates have applied yet.
+
+</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<!-- QUICK TIPS -->
+
+<div class="card tips-card mt-4">
+
+<div class="card-body">
+
+<h5 class="mb-3">
+
+<i class="bi bi-lightning"></i>
+Quick Tips
+
+</h5>
+
+<ul class="tips-list">
+
+<li>Post detailed job descriptions to attract better candidates.</li>
+
+<li>Review applications regularly.</li>
+
+<li>Shortlist candidates quickly for faster hiring.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+/* HEADER */
+
+.recruiter-header h3{
+
+font-size:24px;
+
+}
+
+
+/* ICON */
+
+.icon-circle{
+
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:24px;
+margin:auto;
+
+}
+
+
+/* CARDS */
+
+.recruiter-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+transition:0.25s;
+padding:10px;
+
+}
+
+.recruiter-card:hover{
+
+transform:translateY(-5px);
+box-shadow:0 16px 35px rgba(0,0,0,0.12);
+
+}
+
+
+/* BUTTON */
+
+.recruiter-btn{
+
+margin-top:6px;
+border-radius:8px;
+
+}
+
+
+/* CANDIDATE CARD */
+
+.candidate-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,0.06);
+
+}
+
+
+/* EMPTY ICON */
+
+.empty-icon{
+
+font-size:40px;
+
+}
+
+
+/* TIPS */
+
+.tips-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,0.06);
+
+}
+
+.tips-list{
+
+color:#666;
+padding-left:18px;
+
+}
+
+.tips-list li{
+
+margin-bottom:6px;
+
+}
+
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+.recruiter-header h3{
+
+font-size:20px;
+
+}
+
+.icon-circle{
+
+width:50px;
+height:50px;
+font-size:20px;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

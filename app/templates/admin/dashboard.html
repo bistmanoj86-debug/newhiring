@@ -1,0 +1,430 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+<!-- HEADER -->
+
+<div class="mb-4">
+
+<h3 class="fw-bold">
+
+<i class="bi bi-shield-lock"></i>
+Admin Dashboard
+
+</h3>
+
+<p class="text-muted">
+
+Manage users, jobs and verification requests.
+
+</p>
+
+</div>
+
+<!-- STATS CARDS -->
+
+<div class="row g-4 mb-4">
+
+<!-- TOTAL USERS -->
+
+<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+
+<div class="card stat-card text-center">
+
+<div class="card-body">
+
+<div class="stat-icon bg-primary">
+
+<i class="bi bi-people"></i>
+
+</div>
+
+<h6 class="mt-2">Total Users</h6>
+
+<h3 class="fw-bold">
+
+{{ users|length }}
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- VERIFIED USERS -->
+
+<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+
+<div class="card stat-card text-center">
+
+<div class="card-body">
+
+<div class="stat-icon bg-success">
+
+<i class="bi bi-check-circle"></i>
+
+</div>
+
+<h6 class="mt-2">Verified Users</h6>
+
+<h3 class="fw-bold">
+
+{{ users|selectattr("is_verified")|list|length }}
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PENDING VERIFICATION -->
+
+<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+
+<div class="card stat-card text-center">
+
+<div class="card-body">
+
+<div class="stat-icon bg-danger">
+
+<i class="bi bi-person-x"></i>
+
+</div>
+
+<h6 class="mt-2">Pending Verification</h6>
+
+<h3 class="fw-bold">
+
+{{ users|rejectattr("is_verified")|list|length }}
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ALL JOBS -->
+
+<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+
+<div class="card stat-card text-center">
+
+<div class="card-body">
+
+<div class="stat-icon bg-warning">
+
+<i class="bi bi-briefcase"></i>
+
+</div>
+
+<h6 class="mt-2">All Jobs</h6>
+
+<a href="{{ url_for('admin.all_jobs') }}"
+class="btn btn-primary btn-sm mt-2">
+
+View Jobs
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- APPROVE JOBS -->
+
+<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+
+<div class="card stat-card text-center">
+
+<div class="card-body">
+
+<div class="stat-icon bg-warning">
+
+<i class="bi bi-check-square"></i>
+
+</div>
+
+<h6 class="mt-2">Approve Jobs</h6>
+
+<a href="{{ url_for('admin.approve_jobs') }}"
+class="btn btn-warning btn-sm mt-2">
+
+Review Jobs
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- VERIFICATION REQUESTS -->
+
+<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+
+<div class="card stat-card text-center">
+
+<div class="card-body">
+
+<div class="stat-icon bg-info">
+
+<i class="bi bi-person-check"></i>
+
+</div>
+
+<h6 class="mt-2">Verification Requests</h6>
+
+<a href="{{ url_for('admin.verification_requests') }}"
+class="btn btn-info btn-sm mt-2">
+
+View Requests
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- VERIFY RECRUITERS -->
+
+<div class="col-xl-3 col-lg-4 col-md-6 col-12">
+
+<div class="card stat-card text-center">
+
+<div class="card-body">
+
+<div class="stat-icon bg-success">
+
+<i class="bi bi-building-check"></i>
+
+</div>
+
+<h6 class="mt-2">Verify Recruiters</h6>
+
+<a href="{{ url_for('admin.verify_recruiters') }}"
+class="btn btn-success btn-sm mt-2">
+
+View Recruiters
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- USER MANAGEMENT -->
+
+<div class="card admin-users-card">
+
+<div class="card-body">
+
+<h5 class="mb-3">
+
+<i class="bi bi-people"></i>
+User Management
+
+</h5>
+
+<div class="table-responsive">
+
+<table class="table align-middle admin-user-table">
+
+<thead>
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for user in users %}
+
+<tr>
+
+<td>
+
+<strong>
+
+{{ user.name }}
+
+</strong>
+
+{% if user.is_verified %} <i class="bi bi-patch-check-fill text-primary ms-1"></i>
+{% endif %}
+
+</td>
+
+<td>
+
+{{ user.email }}
+
+</td>
+
+<td>
+
+{% if user.is_verified %}
+
+<span class="badge bg-success">
+
+Verified
+
+</span>
+
+{% else %}
+
+<span class="badge bg-secondary">
+
+Not Verified
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{% if not user.is_verified %}
+
+<a href="{{ url_for('admin.verify_user', user_id=user.id) }}"
+class="btn btn-success btn-sm">
+
+<i class="bi bi-check"></i>
+
+</a>
+
+{% else %}
+
+<a href="{{ url_for('admin.unverify_user', user_id=user.id) }}"
+class="btn btn-danger btn-sm">
+
+<i class="bi bi-x"></i>
+
+</a>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* STATS CARD */
+
+.stat-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+transition:0.25s;
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-4px);
+box-shadow:0 16px 30px rgba(0,0,0,0.10);
+
+}
+
+
+/* ICON */
+
+.stat-icon{
+
+width:50px;
+height:50px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:22px;
+margin:auto;
+
+}
+
+
+/* USERS CARD */
+
+.admin-users-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* TABLE HEADER */
+
+.admin-user-table thead{
+
+background:#f6f7f9;
+
+}
+
+
+/* ROW HOVER */
+
+.admin-user-table tr:hover{
+
+background:#f9fafc;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.stat-card{
+
+text-align:center;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

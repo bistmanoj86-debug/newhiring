@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<div class="row justify-content-center">
+
+<div class="col-xl-7 col-lg-8 col-md-10 col-12">
+
+<!-- TITLE -->
+
+<div class="mb-4">
+
+<h3 class="fw-bold">
+
+<i class="bi bi-plus-circle"></i>
+Post New Job
+
+</h3>
+
+<p class="text-muted small">
+
+Create a job listing to attract the best candidates.
+
+</p>
+
+</div>
+
+<!-- FORM CARD -->
+
+<div class="card job-form-card">
+
+<div class="card-body">
+
+<form method="POST">
+
+<!-- JOB TITLE -->
+
+<div class="form-group">
+
+<label class="form-label fw-semibold">
+
+Job Title
+
+</label>
+
+<input type="text"
+name="title"
+class="form-control"
+placeholder="Example: Python Developer"
+required>
+
+</div>
+
+<!-- JOB DESCRIPTION -->
+
+<div class="form-group">
+
+<label class="form-label fw-semibold">
+
+Job Description
+
+</label>
+
+<textarea
+name="description"
+rows="5"
+class="form-control"
+placeholder="Describe the role, responsibilities, and requirements..."
+required></textarea>
+
+</div>
+
+<!-- LOCATION -->
+
+<div class="form-group">
+
+<label class="form-label fw-semibold">
+
+Location
+
+</label>
+
+<input type="text"
+name="location"
+class="form-control"
+placeholder="Example: Bangalore"
+required>
+
+</div>
+
+<!-- SKILLS -->
+
+<div class="form-group">
+
+<label class="form-label fw-semibold">
+
+Required Skills
+
+</label>
+
+<input type="text"
+name="skills"
+class="form-control"
+placeholder="Example: Python, Flask, SQL"
+required>
+
+<small class="text-muted">
+
+Enter skills separated by commas
+
+</small>
+
+</div>
+
+<!-- BUTTONS -->
+
+<div class="form-buttons">
+
+<button type="submit"
+class="btn btn-success post-btn">
+
+<i class="bi bi-check-circle"></i>
+Post Job
+
+</button>
+
+<a href="/recruiter/dashboard"
+class="btn btn-outline-secondary cancel-btn">
+
+Cancel
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* CARD */
+
+.job-form-card{
+
+border:none;
+border-radius:14px;
+padding:10px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* FORM GROUP */
+
+.form-group{
+
+margin-bottom:18px;
+
+}
+
+
+/* INPUT */
+
+.form-control{
+
+border-radius:8px;
+padding:10px;
+
+}
+
+.form-control:focus{
+
+box-shadow:none;
+border-color:#0d6efd;
+
+}
+
+
+/* BUTTON AREA */
+
+.form-buttons{
+
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+
+}
+
+
+/* POST BUTTON */
+
+.post-btn{
+
+border-radius:8px;
+padding:8px 16px;
+transition:0.2s;
+
+}
+
+.post-btn:hover{
+
+transform:translateY(-1px);
+
+}
+
+
+/* CANCEL BUTTON */
+
+.cancel-btn{
+
+border-radius:8px;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.form-buttons{
+
+flex-direction:column;
+
+}
+
+.post-btn,
+.cancel-btn{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

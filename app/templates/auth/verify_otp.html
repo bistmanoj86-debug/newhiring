@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center otp-page">
+
+<div class="card otp-card">
+
+<div class="text-center mb-3">
+
+<h3 class="fw-bold">
+
+<i class="bi bi-shield-check"></i>
+Verify OTP
+
+</h3>
+
+<p class="text-muted small">
+
+Enter the OTP sent to your phone/email
+
+</p>
+
+</div>
+
+<form method="POST">
+
+<div class="mb-3">
+
+<input type="text"
+name="otp"
+class="form-control form-control-lg text-center otp-input"
+placeholder="Enter OTP"
+maxlength="6"
+required>
+
+</div>
+
+<button class="btn btn-primary w-100 verify-btn">
+
+<i class="bi bi-check-circle"></i>
+Verify OTP
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<style>
+
+/* PAGE CENTER */
+
+.otp-page{
+
+min-height:80vh;
+
+}
+
+
+/* CARD */
+
+.otp-card{
+
+width:400px;
+max-width:100%;
+padding:25px;
+border:none;
+border-radius:14px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+
+}
+
+
+/* INPUT */
+
+.otp-input{
+
+border-radius:8px;
+letter-spacing:4px;
+font-size:20px;
+padding:10px;
+
+}
+
+.otp-input:focus{
+
+box-shadow:none;
+border-color:#0d6efd;
+
+}
+
+
+/* BUTTON */
+
+.verify-btn{
+
+border-radius:8px;
+padding:10px;
+font-weight:500;
+transition:0.2s;
+
+}
+
+.verify-btn:hover{
+
+transform:translateY(-1px);
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.otp-card{
+
+padding:20px;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

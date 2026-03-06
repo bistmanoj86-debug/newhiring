@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+<h3 class="fw-bold mb-4">
+
+<i class="bi bi-shield-check"></i>
+Verification Requests
+
+</h3>
+
+<div class="card verify-card">
+
+<div class="card-body">
+
+{% if users and users|length > 0 %}
+
+<div class="table-responsive">
+
+<table class="table align-middle verify-table">
+
+<thead>
+
+<tr>
+<th>Email</th>
+<th>Role</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for user in users %}
+
+<tr>
+
+<td>
+
+<i class="bi bi-envelope"></i>
+
+{{ user.email }}
+
+</td>
+
+<td>
+
+<span class="badge role-badge">
+
+{{ user.role }}
+
+</span>
+
+</td>
+
+<td>
+
+<a href="{{ url_for('admin.verify_user', user_id=user.id) }}"
+class="btn btn-success btn-sm verify-btn">
+
+<i class="bi bi-check"></i>
+
+Verify
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<!-- EMPTY STATE -->
+
+<div class="empty-state text-center">
+
+<i class="bi bi-person-x"></i>
+
+<h5 class="mt-3">
+
+No Verification Requests
+
+</h5>
+
+<p class="text-muted">
+
+There are no pending verification requests.
+
+</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* CARD */
+
+.verify-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* TABLE HEADER */
+
+.verify-table thead{
+
+background:#f6f7f9;
+
+}
+
+
+/* ROW HOVER */
+
+.verify-table tr{
+
+transition:0.2s;
+
+}
+
+.verify-table tr:hover{
+
+background:#f9fafc;
+
+}
+
+
+/* ROLE BADGE */
+
+.role-badge{
+
+background:#6c757d;
+
+}
+
+
+/* VERIFY BUTTON */
+
+.verify-btn{
+
+border-radius:6px;
+
+}
+
+
+/* EMPTY STATE */
+
+.empty-state{
+
+padding:50px 20px;
+
+}
+
+.empty-state i{
+
+font-size:60px;
+color:#bbb;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.verify-table{
+
+font-size:14px;
+
+}
+
+.verify-btn{
+
+font-size:12px;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

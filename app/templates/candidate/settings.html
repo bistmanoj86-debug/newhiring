@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h3 class="fw-bold mb-4">
+
+<i class="bi bi-gear"></i>
+Account Settings
+
+</h3>
+
+<div class="row g-4">
+
+<!-- EDIT PROFILE -->
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-12">
+
+<div class="card settings-card">
+
+<div class="card-body">
+
+<h5>
+
+<i class="bi bi-person"></i>
+Edit Profile
+
+</h5>
+
+<p class="text-muted small">
+
+Update your personal information.
+
+</p>
+
+<a href="{{ url_for('candidate_bp.profile') }}"
+class="btn btn-primary btn-sm settings-btn">
+
+Edit Profile
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CHANGE PASSWORD -->
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-12">
+
+<div class="card settings-card">
+
+<div class="card-body">
+
+<h5>
+
+<i class="bi bi-lock"></i>
+Change Password
+
+</h5>
+
+<p class="text-muted small">
+
+Update your account password.
+
+</p>
+
+<a href="{{ url_for('candidate_bp.change_password') }}"
+class="btn btn-warning btn-sm settings-btn">
+
+Change Password
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- UPDATE RESUME -->
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-12">
+
+<div class="card settings-card">
+
+<div class="card-body">
+
+<h5>
+
+<i class="bi bi-file-earmark-text"></i>
+Update Resume
+
+</h5>
+
+<p class="text-muted small">
+
+Upload or replace your resume.
+
+</p>
+
+<a href="{{ url_for('candidate_bp.update_resume') }}"
+class="btn btn-success btn-sm settings-btn">
+
+Upload Resume
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- NOTIFICATIONS -->
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-12">
+
+<div class="card settings-card">
+
+<div class="card-body">
+
+<h5>
+
+<i class="bi bi-bell"></i>
+Notification Settings
+
+</h5>
+
+<p class="text-muted small">
+
+Manage job alerts and notifications.
+
+</p>
+
+<a href="{{ url_for('candidate_bp.notification_settings') }}"
+class="btn btn-info btn-sm settings-btn">
+
+Manage Notifications
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SECURITY -->
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-12">
+
+<div class="card settings-card">
+
+<div class="card-body">
+
+<h5>
+
+<i class="bi bi-shield-lock"></i>
+Account Security
+
+</h5>
+
+<p class="text-muted small">
+
+View account security details.
+
+</p>
+
+<a href="{{ url_for('candidate_bp.account_security') }}"
+class="btn btn-secondary btn-sm settings-btn">
+
+Security Settings
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DELETE ACCOUNT -->
+
+<div class="col-xl-4 col-lg-6 col-md-6 col-12">
+
+<div class="card settings-card danger-card">
+
+<div class="card-body">
+
+<h5 class="text-danger">
+
+<i class="bi bi-trash"></i>
+Delete Account
+
+</h5>
+
+<p class="text-muted small">
+
+Permanently remove your account.
+
+</p>
+
+<a href="{{ url_for('candidate_bp.delete_account') }}"
+class="btn btn-danger btn-sm settings-btn">
+
+Delete Account
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* SETTINGS CARD */
+
+.settings-card{
+
+border:none;
+border-radius:14px;
+padding:10px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+transition:0.25s;
+
+}
+
+.settings-card:hover{
+
+transform:translateY(-4px);
+box-shadow:0 16px 30px rgba(0,0,0,0.10);
+
+}
+
+
+/* DANGER CARD */
+
+.danger-card{
+
+border-left:4px solid #dc3545;
+
+}
+
+
+/* BUTTON */
+
+.settings-btn{
+
+border-radius:8px;
+margin-top:6px;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.settings-card{
+
+text-align:center;
+
+}
+
+.settings-btn{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

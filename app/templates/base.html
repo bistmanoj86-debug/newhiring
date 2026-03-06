@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>NewHiring</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+
+/* GLOBAL */
+
+body{
+background:#f4f6f9;
+font-family:'Poppins',sans-serif;
+margin:0;
+padding:0;
+overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar{
+background:linear-gradient(45deg,#0d6efd,#6610f2);
+box-shadow:0 6px 18px rgba(0,0,0,0.15);
+padding:12px 24px;
+min-height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+/* LOGO */
+
+.logo-img{
+height:45px;
+width:auto;
+object-fit:contain;
+}
+
+/* MAIN CONTENT */
+
+.main-content{
+padding:35px;
+min-height:90vh;
+}
+
+/* BUTTON STYLE */
+
+.btn-light{
+border-radius:50%;
+width:42px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+transition:0.25s;
+border:none;
+}
+
+.btn-light:hover{
+transform:scale(1.05);
+box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+right:-280px;
+width:280px;
+height:100%;
+background:#ffffff;
+box-shadow:-5px 0 20px rgba(0,0,0,0.15);
+padding:25px;
+transition:0.35s ease;
+z-index:1050;
+overflow-y:auto;
+}
+
+.sidebar.active{
+right:0;
+}
+
+.sidebar h6{
+color:#888;
+letter-spacing:2px;
+font-weight:600;
+margin-bottom:20px;
+}
+
+/* SIDEBAR LINKS */
+
+.sidebar a{
+display:flex;
+align-items:center;
+padding:12px 14px;
+text-decoration:none;
+color:#333;
+border-radius:10px;
+margin-bottom:6px;
+font-size:15px;
+transition:0.25s;
+}
+
+.sidebar a i{
+margin-right:10px;
+font-size:16px;
+}
+
+.sidebar a:hover{
+background:#f4f6f9;
+transform:translateX(5px);
+}
+
+/* LOGOUT COLOR */
+
+.sidebar .text-danger:hover{
+background:#ffe9e9;
+}
+
+/* OVERLAY */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.35);
+backdrop-filter:blur(2px);
+display:none;
+z-index:1040;
+}
+
+.overlay.active{
+display:block;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#bbb;
+border-radius:10px;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width:768px){
+
+.main-content{
+padding:20px 15px;
+}
+
+.logo-img{
+height:40px;
+}
+
+.navbar{
+padding:10px 15px;
+}
+
+.btn-light{
+width:38px;
+height:38px;
+font-size:16px;
+}
+
+}
+
+/* TABLET */
+
+@media (max-width:992px){
+
+.main-content{
+padding:25px 20px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- OVERLAY -->
+
+<div id="overlay" class="overlay"></div>
+
+<!-- SIDEBAR -->
+
+<div id="sidebar" class="sidebar">
+
+<h6>MENU</h6>
+
+{% if session.get("role") == "candidate" %}
+
+<a href="{{ url_for('candidate_bp.dashboard') }}">
+<i class="bi bi-speedometer2"></i> Dashboard
+</a>
+
+<a href="{{ url_for('candidate_bp.profile') }}">
+<i class="bi bi-person"></i> Profile
+</a>
+
+<a href="{{ url_for('candidate_bp.my_applications') }}">
+<i class="bi bi-file-earmark-text"></i> Applied Jobs
+</a>
+
+<a href="{{ url_for('candidate_bp.settings') }}">
+<i class="bi bi-gear"></i> Settings
+</a>
+
+<a href="{{ url_for('candidate_bp.recommended_jobs') }}">
+<i class="bi bi-stars"></i> Recommended Jobs
+</a>
+
+{% elif session.get("role") == "recruiter" %}
+
+<a href="{{ url_for('recruiter.dashboard') }}">
+<i class="bi bi-speedometer2"></i> Dashboard
+</a>
+
+<a href="{{ url_for('recruiter.post_job') }}">
+<i class="bi bi-plus-circle"></i> Post Job
+</a>
+
+<a href="{{ url_for('recruiter.my_jobs') }}">
+<i class="bi bi-briefcase"></i> Jobs
+</a>
+
+<a href="{{ url_for('recruiter.view_applications') }}">
+<i class="bi bi-people"></i> Applications
+</a>
+
+{% endif %}
+
+<hr>
+
+<a class="text-danger" href="{{ url_for('auth.logout') }}">
+<i class="bi bi-box-arrow-right"></i> Logout
+</a>
+
+</div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-dark">
+
+<a class="navbar-brand text-white" href="/">
+<img src="{{ url_for('static', filename='images/logo.png') }}" class="logo-img">
+</a>
+
+{% if session.get("user_id") %}
+
+<div class="d-flex align-items-center gap-2">
+
+<a href="{{ url_for('candidate_bp.notification_settings') }}" class="btn btn-light">
+<i class="bi bi-bell"></i>
+</a>
+
+<a href="{{ url_for('chat.chat_home') }}" class="btn btn-light">
+<i class="bi bi-chat-dots"></i>
+</a>
+
+<button class="btn btn-light" id="menuBtn">
+<i class="bi bi-list"></i>
+</button>
+
+</div>
+
+{% endif %}
+
+</nav>
+
+<div class="container-fluid">
+
+<div class="main-content">
+
+{% block content %}
+{% endblock %}
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+if(menuBtn){
+
+menuBtn.addEventListener("click", () => {
+
+sidebar.classList.toggle("active");
+overlay.classList.toggle("active");
+
+});
+
+}
+
+overlay.addEventListener("click", () => {
+
+sidebar.classList.remove("active");
+overlay.classList.remove("active");
+
+});
+
+</script>
+
+</body>
+</html>

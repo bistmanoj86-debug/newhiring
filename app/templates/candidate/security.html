@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<div class="row justify-content-center">
+
+<div class="col-xl-6 col-lg-7 col-md-9 col-12">
+
+<h3 class="fw-bold mb-4">
+
+<i class="bi bi-shield-lock"></i>
+Account Security
+
+</h3>
+
+<div class="card security-card">
+
+<div class="card-body">
+
+<!-- EMAIL -->
+
+<div class="security-item">
+
+<span class="label">Account Email</span>
+
+<span class="value">
+
+{{ session.email }}
+
+</span>
+
+</div>
+
+<!-- LAST LOGIN -->
+
+<div class="security-item">
+
+<span class="label">Last Login</span>
+
+<span class="value text-muted">
+
+Recently
+
+</span>
+
+</div>
+
+<!-- ACCOUNT STATUS -->
+
+<div class="security-item">
+
+<span class="label">Account Status</span>
+
+<span class="badge bg-success">
+
+Active
+
+</span>
+
+</div>
+
+<hr>
+
+<!-- ACTION -->
+
+<a href="{{ url_for('candidate_bp.change_password') }}"
+class="btn btn-secondary change-btn">
+
+<i class="bi bi-key"></i>
+Change Password
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* CARD */
+
+.security-card{
+
+border:none;
+border-radius:14px;
+padding:10px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* ITEM */
+
+.security-item{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:8px 0;
+
+}
+
+
+/* LABEL */
+
+.label{
+
+font-weight:600;
+
+}
+
+
+/* VALUE */
+
+.value{
+
+font-weight:500;
+
+}
+
+
+/* BUTTON */
+
+.change-btn{
+
+border-radius:8px;
+margin-top:10px;
+transition:0.2s;
+
+}
+
+.change-btn:hover{
+
+transform:translateY(-1px);
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.security-item{
+
+flex-direction:column;
+align-items:flex-start;
+gap:3px;
+
+}
+
+.change-btn{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+<h3 class="fw-bold mb-4">
+
+<i class="bi bi-check-square"></i>
+Approve Jobs
+
+</h3>
+
+<div class="card approve-card">
+
+<div class="card-body">
+
+{% if jobs %}
+
+<div class="table-responsive">
+
+<table class="table align-middle approve-table">
+
+<thead>
+
+<tr>
+<th>Job Title</th>
+<th>Recruiter</th>
+<th>Location</th>
+<th>Skills</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for job in jobs %}
+
+<tr>
+
+<!-- JOB TITLE -->
+
+<td>
+
+<strong>
+
+{{ job.title }}
+
+</strong>
+
+</td>
+
+<!-- RECRUITER -->
+
+<td>
+
+<i class="bi bi-person"></i>
+
+{{ job.recruiter.email }}
+
+</td>
+
+<!-- LOCATION -->
+
+<td>
+
+<i class="bi bi-geo-alt"></i>
+
+{{ job.location }}
+
+</td>
+
+<!-- SKILLS -->
+
+<td>
+
+{% if job.skills %}
+
+{% for skill in job.skills.split(",") %}
+
+<span class="skill-tag">
+
+{{ skill.strip() }}
+
+</span>
+
+{% endfor %}
+
+{% endif %}
+
+</td>
+
+<!-- ACTIONS -->
+
+<td class="action-buttons">
+
+<a href="{{ url_for('admin.approve_job', job_id=job.id) }}"
+class="btn btn-success btn-sm approve-btn">
+
+<i class="bi bi-check"></i>
+
+</a>
+
+<a href="{{ url_for('admin.reject_job', job_id=job.id) }}"
+class="btn btn-danger btn-sm reject-btn">
+
+<i class="bi bi-x"></i>
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<!-- EMPTY STATE -->
+
+<div class="empty-state text-center">
+
+<i class="bi bi-briefcase"></i>
+
+<h5 class="mt-3">
+
+No Jobs Pending Approval
+
+</h5>
+
+<p class="text-muted">
+
+All jobs are already approved.
+
+</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* CARD */
+
+.approve-card{
+
+border:none;
+border-radius:14px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* TABLE HEADER */
+
+.approve-table thead{
+
+background:#f6f7f9;
+
+}
+
+
+/* ROW HOVER */
+
+.approve-table tr{
+
+transition:0.2s;
+
+}
+
+.approve-table tr:hover{
+
+background:#f9fafc;
+
+}
+
+
+/* SKILL TAG */
+
+.skill-tag{
+
+background:#f2f4f7;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+margin-right:4px;
+margin-bottom:4px;
+display:inline-block;
+
+}
+
+
+/* ACTION BUTTONS */
+
+.action-buttons .btn{
+
+margin-right:4px;
+border-radius:6px;
+
+}
+
+
+/* EMPTY STATE */
+
+.empty-state{
+
+padding:50px 20px;
+
+}
+
+.empty-state i{
+
+font-size:60px;
+color:#bbb;
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.approve-table{
+
+font-size:14px;
+
+}
+
+}
+
+</style>
+
+{% endblock %}

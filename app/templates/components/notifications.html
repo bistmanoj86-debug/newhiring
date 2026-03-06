@@ -1,0 +1,31 @@
+<a href="{{ url_for('notification.view_notifications') }}"
+   class="btn btn-light btn-sm position-relative">
+
+<i class="bi bi-bell"></i>
+
+{% if unread_count and unread_count > 0 %}
+
+<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+{{ unread_count }}
+
+</span>
+
+{% endif %}
+
+</a><a href="{{ url_for('notification.view_notifications') }}"
+   class="btn btn-light btn-sm position-relative">
+
+<i class="bi bi-bell"></i>
+
+{% if unread_count and unread_count > 0 %}
+
+<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+{{ unread_count }}
+
+</span>
+
+{% endif %}
+
+</a>

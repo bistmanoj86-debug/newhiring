@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<div class="row justify-content-center">
+
+<div class="col-xl-5 col-lg-6 col-md-8 col-12">
+
+<h3 class="fw-bold mb-4 text-danger">
+
+<i class="bi bi-exclamation-triangle"></i>
+Delete Account
+
+</h3>
+
+<div class="card delete-card">
+
+<div class="card-body text-center">
+
+<p class="warning-text">
+
+⚠ Warning: This action will permanently delete your account. <br>
+This cannot be undone.
+
+</p>
+
+<form method="POST">
+
+<button class="btn btn-danger delete-btn">
+
+<i class="bi bi-trash"></i>
+Delete My Account
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STYLE -->
+
+<style>
+
+/* CARD */
+
+.delete-card{
+
+border:none;
+border-radius:14px;
+padding:15px;
+box-shadow:0 8px 22px rgba(0,0,0,0.06);
+
+}
+
+
+/* WARNING TEXT */
+
+.warning-text{
+
+color:#dc3545;
+font-weight:500;
+margin-bottom:20px;
+
+}
+
+
+/* DELETE BUTTON */
+
+.delete-btn{
+
+border-radius:8px;
+padding:10px 18px;
+transition:0.2s;
+
+}
+
+.delete-btn:hover{
+
+transform:translateY(-1px);
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.delete-btn{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+{% endblock %}
