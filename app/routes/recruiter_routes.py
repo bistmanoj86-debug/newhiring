@@ -15,12 +15,10 @@ def dashboard():
     if "user_id" not in session or session.get("role") != "recruiter":
         return redirect(url_for("auth.login"))
 
-    # Recruiter ke jobs
     jobs = Job.query.filter_by(
         recruiter_id=session["user_id"]
     ).all()
 
-    # Sirf recruiter ke jobs ke applicants
     applications = Application.query.join(Job).filter(
         Job.recruiter_id == session["user_id"]
     ).all()
@@ -182,6 +180,9 @@ def delete_job(job_id):
 
     job = Job.query.get_or_404(job_id)
 
+    # delete applications first
+    Application.query.filter_by(job_id=job_id).delete()
+
     db.session.delete(job)
     db.session.commit()
 
@@ -194,7 +195,7 @@ def delete_job(job_id):
 @recruiter.route("/candidates")
 def candidates():
 
-    if "user_id" not in session:
+    if "user_id" not in session or session.get("role") != "recruiter":
         return redirect(url_for("auth.login"))
 
     applications = Application.query.join(Job).filter(
